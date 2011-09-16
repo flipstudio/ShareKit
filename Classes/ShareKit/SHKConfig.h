@@ -85,7 +85,11 @@
 // Append 'Shared With 'Signature to Email (and related forms)
 #define SHKSharedWithSignature		0
 
-
+// Evernote - http://www.evernote.com/about/developer/api/
+#define SHKEvernoteUserStoreURL     @""
+#define SHKEvernoteSecretKey        @""
+#define SHKEvernoteConsumerKey      @""
+#define SHKEvernoteNetStoreURLBase  @""
 
 /*
  UI Configuration : Basic
