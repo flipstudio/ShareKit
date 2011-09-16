@@ -1,9 +1,19 @@
+# Exclude the build directory
+build/*
+ 
+# Exclude temp nibs and swap files
+*~.nib
+*.swp
+ 
+# Exclude OS X folder attributes
 .DS_Store
-*~
-*.pbxuser
+ 
+# Exclude user-specific XCode 3 and 4 files
+*.mode1
+*.mode1v3
+*.mode2v3
 *.perspective
 *.perspectivev3
-*.mode1v3
-build
-.DS_Store
-Classes/ShareKit/SHKConfig.h
+*.pbxuser
+*.xcworkspace
+xcuserdata
