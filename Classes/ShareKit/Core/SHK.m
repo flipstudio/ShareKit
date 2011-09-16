@@ -357,7 +357,17 @@ BOOL SHKinit;
 	return [[NSUserDefaults standardUserDefaults] setObject:exclusions forKey:[NSString stringWithFormat:@"%@Exclusions", SHK_FAVS_PREFIX_KEY]];	
 }
 
+#pragma mark -
 
++ (BOOL)isMoreButtonDisabled 
+{
+	return [[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@MoreButtonDisabled", SHK_FAVS_PREFIX_KEY]] boolValue];
+}
+
++ (void)setMoreButtonDisabled:(BOOL)disabled
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%i", disabled] forKey:[NSString stringWithFormat:@"%@MoreButtonDisabled", SHK_FAVS_PREFIX_KEY]];
+}
 
 #pragma mark -
 #pragma mark Credentials

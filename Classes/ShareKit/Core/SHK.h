@@ -90,6 +90,8 @@
 + (NSDictionary *)getUserExclusions;
 + (void)setUserExclusions:(NSDictionary *)exclusions;
 
++ (BOOL)isMoreButtonDisabled;
++ (void)setMoreButtonDisabled:(BOOL)disabled;
 
 #pragma mark -
 #pragma mark Credentials
