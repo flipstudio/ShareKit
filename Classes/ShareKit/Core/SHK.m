@@ -34,6 +34,7 @@
 #import "Reachability.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import </usr/include/objc/objc-class.h>
 #import <MessageUI/MessageUI.h>
 
 
@@ -127,8 +128,12 @@ BOOL SHKinit;
 	if (currentView != nil)
 	{
 		self.pendingView = vc;
-		[[currentView parentViewController] dismissModalViewControllerAnimated:YES];
-		return;
+        
+		//[[currentView parentViewController] dismissModalViewControllerAnimated:YES];
+		// Changed for iOS 5
+        [currentView dismissModalViewControllerAnimated:YES];
+        
+        return;
 	}
 		
 	// Wrap the view in a nav controller if not already
@@ -178,15 +183,9 @@ BOOL SHKinit;
 	
 	if (currentView != nil)
 	{
-		// Dismiss the modal view
-		if ([currentView parentViewController] != nil)
-		{
-			self.isDismissingView = YES;
-			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
-		}
-		
-		else
-			self.currentView = nil;
+		// Dismiss the modal view        
+        // Changed for iOS 5        
+        [currentView dismissModalViewControllerAnimated:animated];        
 	}
 }
 
@@ -204,9 +203,6 @@ BOOL SHKinit;
 	if (currentView != nil)
 		currentView = nil;
 	
-    if (rootViewController != nil)
-        rootViewController = nil;
-
 	if (pendingView)
 	{
 		// This is an ugly way to do it, but it works.
@@ -286,7 +282,7 @@ BOOL SHKinit;
 				break;
 				
 			case SHKShareTypeImage:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook",@"SHKCopy",nil];
+				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook",@"SHKCopy", @"SHKTwitter", @"SHKPhotoAlbum",nil];
 				break;
 				
 			case SHKShareTypeText:
