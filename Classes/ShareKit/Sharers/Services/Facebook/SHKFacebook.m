@@ -233,10 +233,15 @@
 		self.pendingFacebookAction = SHKFacebookPendingNone;
 		[self share];
 	}
+	
+	if (self.logged)
+		self.logged();
 }
 
 - (void)session:(FBSession*)session willLogout:(FBUID)uid 
 {
+	if (self.loggedOut)
+		self.loggedOut();
 	// Not handling this
 }
 
@@ -255,6 +260,9 @@
 - (void)request:(FBRequest*)aRequest didFailWithError:(NSError*)error 
 {
 	[self sendDidFailWithError:error];
+	
+	if (self.logError)
+		self.logError(error);
 }
 
 

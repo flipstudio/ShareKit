@@ -226,6 +226,9 @@
 		[self storeAccessToken];
 		
 		[self tryPendingAction];
+		
+		if (self.logged) 
+			self.logged();
 	}
 	
 	
@@ -243,6 +246,10 @@
 								delegate:nil
 					   cancelButtonTitle:SHKLocalizedString(@"Close")
 					   otherButtonTitles:nil] autorelease] show];
+	
+	if (self.logError)
+		self.logError(error);
+	
 }
 
 - (void)storeAccessToken
@@ -293,7 +300,10 @@
 	self.consumer = [[[OAConsumer alloc] initWithKey:consumerKey secret:secretKey] autorelease];
 	
 	if (accessToken != nil)
+	{
+		if (self.logged) self.logged();
 		return YES;
+	}
 		
 	NSString *key = [SHK getAuthValueForKey:@"accessKey"
 				  forSharer:[self sharerId]];
@@ -310,6 +320,9 @@
 		
 		if (sessionHandle != nil)
 			accessToken.sessionHandle = sessionHandle;
+		
+		if (accessToken != nil && self.logged) 
+			self.logged();
 		
 		return accessToken != nil;
 	}

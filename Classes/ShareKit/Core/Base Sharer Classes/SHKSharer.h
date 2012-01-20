@@ -41,7 +41,6 @@
 
 @end
 
-
 typedef enum 
 {
 	SHKPendingNone,
@@ -49,6 +48,8 @@ typedef enum
 	SHKPendingRefreshToken
 } SHKSharerPendingAction;
 
+typedef void (^SHKLoginBlock)(void);
+typedef void (^SHKLogErrorBlock)(NSError *);
 
 @interface SHKSharer : UINavigationController <SHKSharerDelegate>
 {	
@@ -75,7 +76,9 @@ typedef enum
 @property BOOL quiet;
 @property SHKSharerPendingAction pendingAction;
 
-
+@property (readonly, nonatomic, copy) SHKLoginBlock logged;
+@property (readonly, nonatomic, copy) SHKLoginBlock loggedOut;
+@property (readonly, nonatomic, copy) SHKLogErrorBlock logError;
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -146,6 +149,12 @@ typedef enum
 + (NSString *)authorizationFormCaption;
 + (void)logout;
 + (BOOL)isServiceAuthorized;
+
+#pragma mark - Authorization Blocks
+
+- (void)setLoggedBlock:(void(^)())block;
+- (void)setLoggedOutBlock:(void(^)())block;
+- (void)setLogErrorBlock:(void(^)(NSError *))block;
 
 #pragma mark -
 #pragma mark API Implementation

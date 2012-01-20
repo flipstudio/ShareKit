@@ -1,4 +1,4 @@
-    //
+//
 //  SHKSharer.m
 //  ShareKit
 //
@@ -28,12 +28,24 @@
 #import "SHKSharer.h"
 #import "SHKActivityIndicator.h"
 
+@interface SHKSharer ()
+
+@property (readwrite, nonatomic, copy) SHKLoginBlock logged;
+@property (readwrite, nonatomic, copy) SHKLoginBlock loggedOut;
+@property (readwrite, nonatomic, copy) SHKLogErrorBlock logError;
+
+@end
+
 @implementation SHKSharer
 
 @synthesize shareDelegate;
 @synthesize item, pendingForm, request;
 @synthesize lastError;
 @synthesize quiet, pendingAction;
+
+@synthesize logged = _logged;
+@synthesize loggedOut = _loggedOut;
+@synthesize logError = _logError;
 
 - (void)dealloc
 {
@@ -434,8 +446,22 @@
 	return isAuthorized;	
 }
 
+#pragma mark - Authorization Blocks
 
+- (void)setLoggedBlock:(void (^)())block
+{
+	self.logged = block;
+}
 
+- (void)setLoggedOutBlock:(void (^)())block
+{
+	self.loggedOut = block;
+}
+
+- (void)setLogErrorBlock:(void (^)(NSError *))block
+{
+	self.logError = block;
+}
 
 #pragma mark -
 #pragma mark UI Implementation
